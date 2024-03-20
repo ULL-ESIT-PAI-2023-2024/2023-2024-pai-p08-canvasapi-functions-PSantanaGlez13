@@ -29,10 +29,7 @@ export class View {
       throw new Error('Error getting the context');
     }
     this.context = CONTEXT_OR_NULL;
-    const WIDTH: number = this.canvas.width;
-    const HEIGHT: number = this.canvas.height;
-    // Centering the canvas.
-    this.context.translate(WIDTH / 2, HEIGHT / 2);
+    this.centerCanvas();
   }
 
   /**
@@ -40,6 +37,17 @@ export class View {
    * @param toDraw Element to draw.
    */
   public draw(toDraw: Drawable) {
+    //this.centerCanvas();
     toDraw.draw(this.context);
+  }
+
+  /**
+   * Centers the canvas
+   */
+  private centerCanvas() {
+    const WIDTH: number = this.canvas.width;
+    const HEIGHT: number = this.canvas.height;
+    // Centering the canvas.
+    this.context.translate(WIDTH / 2, HEIGHT / 2);
   }
 };

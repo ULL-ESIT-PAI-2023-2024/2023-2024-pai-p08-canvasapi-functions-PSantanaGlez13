@@ -39,6 +39,7 @@ export class Grid {
     draw(context) {
         const SCALE_X = context.canvas.width / (Math.abs(this.xMin) + this.xMax);
         const SCALE_Y = context.canvas.height / (Math.abs(this.yMin) + this.yMax);
+        this.adjustCenter(context, SCALE_X, SCALE_Y);
         this.drawAxisX(context, SCALE_X);
         this.drawAxisY(context, SCALE_Y);
         const LARGEST_X = Math.trunc(context.canvas.width / 2);
@@ -71,6 +72,21 @@ export class Grid {
             }
             context.stroke();
         }
+    }
+    /**
+     * Adjusts the center of the context.
+     * @param context The context to center.
+     * @param scaleX Scale of the X axis.
+     * @param scaleY Scale of the Y axis.
+     */
+    adjustCenter(context, scaleX, scaleY) {
+        const POSITIVE_X_NEEDED = this.xMax * scaleX;
+        const USED_X = context.canvas.width / 2;
+        const X_ADJUSTMENT = USED_X - POSITIVE_X_NEEDED;
+        const POSITIVE_Y_NEEDED = this.yMax * scaleY;
+        const USED_Y = context.canvas.height / 2;
+        const Y_ADJUSTMENT = USED_Y - POSITIVE_Y_NEEDED;
+        context.translate(X_ADJUSTMENT, -Y_ADJUSTMENT);
     }
     /**
      * Draw axis X.
