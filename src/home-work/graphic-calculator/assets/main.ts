@@ -14,8 +14,8 @@ import { GridFunction } from './grid-function.js';
 
 function main(): void {
   const CANVAS_ID = 'canvas_functions';
-  let graphic_calculator_view = new View(CANVAS_ID);
-  let grid = new Grid(22, -16, 6, -8);
+  let graphicCalculatorView = new View(CANVAS_ID);
+  let grid = new Grid(22, -16, 6, -6);
   const FUNCTION_TO_DRAW = (xValue: number): number | undefined => {
     try {
       return Math.exp(xValue);
@@ -26,11 +26,11 @@ function main(): void {
       return undefined;
     }
   }
-  const COLOR = "red";
+  const COLOR = 'red';
   const WIDTH = 3;
   const FUNCTION_1 = new GridFunction(FUNCTION_TO_DRAW, COLOR, WIDTH);
   grid.insertFunction(FUNCTION_1)
-  graphic_calculator_view.draw(grid);
+  graphicCalculatorView.draw(grid);
 }
 
 main();

@@ -13,7 +13,7 @@ import { GridFunction } from './grid-function.js';
 function main() {
     const CANVAS_ID = 'canvas_functions';
     let graphic_calculator_view = new View(CANVAS_ID);
-    let grid = new Grid(22, -16, 6, -8);
+    let grid = new Grid(22, -16, 6, -6);
     const FUNCTION_TO_DRAW = (xValue) => {
         try {
             return Math.exp(xValue);

@@ -1,0 +1,19 @@
+body {
+  background-color: darkgray;
+}
+
+h1 {
+  color: black
+}
+
+a {
+  color: blue;
+  background-color: white;
+  font-style: italic;
+}
+
+canvas {
+  background: white;
+  margin: auto;
+  align-self:  center;
+}

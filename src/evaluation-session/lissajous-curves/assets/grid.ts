@@ -44,8 +44,6 @@ export class Grid implements Drawable {
     const SCALE_X: number = context.canvas.width / (Math.abs(this.xMin) + this.xMax);
     const SCALE_Y: number = context.canvas.height / (Math.abs(this.yMin) + this.yMax);
     this.adjustCenter(context, SCALE_X, SCALE_Y);
-    this.drawAxisX(context, SCALE_X);
-    this.drawAxisY(context, SCALE_Y);
     const LARGEST_X: number = Math.trunc(this.contextMaxValueX);
     const LOWEST_X: number = LARGEST_X - context.canvas.width;
     const LARGEST_Y: number = Math.trunc(this.contextMaxValueY);
@@ -94,69 +92,4 @@ export class Grid implements Drawable {
     context.translate(X_ADJUSTMENT, -Y_ADJUSTMENT);
   }
 
-  /**
-   * Draw axis X.
-   * @param context The context to draw on.
-   * @param scale Scale of the axis X. 
-   */
-  private drawAxisX(context: CanvasRenderingContext2D, scale: number): void {
-    const MAX_X: number = Math.trunc(this.contextMaxValueX);
-    const MIN_X: number = MAX_X - context.canvas.width;
-    const MAX_Y: number = Math.trunc(this.contextMaxValueY);
-    const MIN_Y: number = MAX_Y - context.canvas.height;
-    const SPACE_TEXT_WITH_AXIS: number = context.lineWidth + 10;
-    context.strokeStyle = 'black';
-    context.beginPath();
-    context.moveTo(MIN_X, 0);
-    context.lineTo(MAX_X, 0);
-    context.stroke();
-    context.strokeStyle = 'grey';
-    context.beginPath();
-    const LEFT_LIMIT: number = Math.trunc(this.xMin * scale)
-    for (let currentX = 0; currentX >= LEFT_LIMIT; currentX -= scale) {
-      context.moveTo(currentX, MAX_Y);
-      context.lineTo(currentX, MIN_Y);
-      context.fillText(String(Math.trunc(currentX / scale)), currentX, 0 + SPACE_TEXT_WITH_AXIS);
-    }
-    const RIGHT_LIMIT: number = Math.trunc(this.xMax * scale)
-    for (let currentX = 0; currentX <= RIGHT_LIMIT; currentX += scale) {
-      context.moveTo(currentX, MAX_Y);
-      context.lineTo(currentX, MIN_Y);
-      context.fillText(String(Math.trunc(currentX / scale)), currentX, 0 + SPACE_TEXT_WITH_AXIS);
-    }
-    context.stroke();
-  }
-
-  /**
-   * Draw axis Y.
-   * @param context The context to draw on.
-   * @param scale Scale of the axis Y.
-   */
-  private drawAxisY(context: CanvasRenderingContext2D, scale: number): void {
-    const MAX_X: number = Math.trunc(this.contextMaxValueX);
-    const MAX_Y: number = Math.trunc(this.contextMaxValueY);
-    const MIN_Y: number = MAX_Y - context.canvas.height;
-    const MIN_X: number = MAX_X - context.canvas.width;
-    const SPACE_TEXT_WITH_AXIS: number = context.lineWidth + 10;
-    context.strokeStyle = 'black';
-    context.beginPath();
-    context.moveTo(0, MAX_Y);
-    context.lineTo(0, -MIN_Y);
-    context.stroke();
-    context.strokeStyle = 'grey';
-    context.beginPath();
-    const LOWER_LIMIT: number = Math.trunc(this.yMin * scale)
-    for (let currentY = 0; currentY >= LOWER_LIMIT; currentY -= scale) {
-      context.moveTo(MIN_X, -currentY);
-      context.lineTo(MAX_X, -currentY);
-      context.fillText(String(Math.trunc(currentY / scale)), 0 + SPACE_TEXT_WITH_AXIS, -currentY);
-    }
-    const UPPER_LIMIT: number = Math.trunc(this.yMax * scale)
-    for (let currentY = 0; currentY <= UPPER_LIMIT; currentY += scale) {
-      context.moveTo(MIN_X, -currentY);
-      context.lineTo(MAX_X, -currentY);
-      context.fillText(String(Math.trunc(currentY / scale)), 0 + SPACE_TEXT_WITH_AXIS, -currentY);
-    }
-    context.stroke();
-  }
 }
